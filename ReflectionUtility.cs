@@ -115,15 +115,17 @@ namespace Optique.Reflection
 
         public static object GetClosingObject(object sourceObject, IEnumerable<MemberInfo> membersChain)
         {
-            foreach (MemberInfo memberInfo in membersChain)
+            MemberInfo[] members = membersChain.ToArray();
+
+            for (int i = 0; i < members.Length - 1; ++i)
             {
-                if (memberInfo.IsField())
+                if (members[i].IsField())
                 {
-                    sourceObject = ((FieldInfo) memberInfo).GetValue(sourceObject);
+                    sourceObject = ((FieldInfo) members[i]).GetValue(sourceObject);
                 }
-                else if (memberInfo.IsProperty())
+                else if (members[i].IsProperty())
                 {
-                    sourceObject = ((PropertyInfo) memberInfo).GetValue(sourceObject);
+                    sourceObject = ((PropertyInfo) members[i]).GetValue(sourceObject);
                 }
             }
 
