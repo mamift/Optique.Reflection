@@ -7,6 +7,18 @@ namespace Optique.Reflection
 {
     public static class TypeExtensions
     {
+        public static bool IsCastableTo(this Type from, Type to)
+        {
+            return to.IsAssignableFrom(from) ||
+                   typeof(IConvertible).IsAssignableFrom(from) && typeof(IConvertible).IsAssignableFrom(to) ||
+                   from.GetMethods(BindingFlags.Public | BindingFlags.Static)
+                           .Any(
+                                   m => m.ReturnType == to &&
+                                        (m.Name == "op_Implicit" ||
+                                         m.Name == "op_Explicit")
+                           );
+        }
+
         public static MemberInfo[] GetMembers(this Type targetType, params IMemberFilter[] filters)
         {
             bool IsMatch(MemberInfo memberInfo) => filters.All(filter => filter.IsMatch(memberInfo));

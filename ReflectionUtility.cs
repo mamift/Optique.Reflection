@@ -17,6 +17,121 @@ namespace Optique.Reflection
         private static readonly Dictionary<string, Type> TypesCache = new Dictionary<string, Type>();
 
 
+        public static Action<object> GetMutator(object targetObject, IEnumerable<MemberInfo> membersChain)
+        {
+            //TODO: remove try-catch
+            if (targetObject == null)
+            {
+                return null;
+            }
+
+            targetObject = GetClosingObject(targetObject, membersChain);
+            MemberInfo member = membersChain.Last();
+            Type underlyingType = member.GetUnderlyingType();
+
+            if (member.IsField() || member.IsProperty())
+            {
+                if (member.MemberType.HasFlag(MemberTypes.Field))
+                {
+                    FieldInfo field = (FieldInfo) member;
+                    return value =>
+                    {
+                        try
+                        {
+                            field.SetValue(targetObject, Convert.ChangeType(value, underlyingType));
+                        }
+                        catch
+                        {
+                            MethodInfo converter = field.FieldType.GetMethod("op_Implicit", new[] {value.GetType()});
+                            if (converter != null)
+                            {
+                                field.SetValue(targetObject, converter.Invoke(null, new[] {value}));
+                            }
+                            else
+                            {
+                                converter = value.GetType().GetMethod("op_Implicit", new[] {value.GetType()});
+                                if (converter != null)
+                                {
+                                    field.SetValue(targetObject, converter.Invoke(null, new[] {value}));
+                                }
+                            }
+                        }
+                    };
+                }
+                else if (member.MemberType.HasFlag(MemberTypes.Property))
+                {
+                    PropertyInfo property = (PropertyInfo) member;
+
+                    return value =>
+                    {
+                        try
+                        {
+                            property.SetValue(targetObject, Convert.ChangeType(value, underlyingType));
+                        }
+                        catch
+                        {
+                            MethodInfo converter = property.PropertyType.GetMethod("op_Implicit", new[] {value.GetType()});
+                            if (converter != null)
+                            {
+                                property.SetValue(targetObject, converter.Invoke(null, new[] {value}));
+                            }
+                            else
+                            {
+                                converter = value.GetType().GetMethod("op_Implicit", new[] {value.GetType()});
+                                if (converter != null)
+                                {
+                                    property.SetValue(targetObject, converter.Invoke(null, new[] {value}));
+                                }
+                            }
+                        }
+                    };
+                }
+            }
+
+            return null;
+        }
+
+        public static Func<object> GetAccessor(object targetObject, IEnumerable<MemberInfo> membersChain)
+        {
+            object closingObject = GetClosingObject(targetObject, membersChain);
+
+            MemberInfo memberInfo = membersChain.Last();
+
+            switch (memberInfo.MemberType)
+            {
+                case MemberTypes.Field:
+                {
+                    return () => ((FieldInfo) memberInfo).GetValue(closingObject);
+                }
+
+                case MemberTypes.Property:
+                {
+                    return () => ((PropertyInfo) memberInfo).GetValue(closingObject);
+                }
+            }
+
+            return null;
+        }
+
+        public static object GetClosingObject(object sourceObject, IEnumerable<MemberInfo> membersChain)
+        {
+            MemberInfo[] members = membersChain.ToArray();
+
+            for (int i = 0; i < members.Length - 1; ++i)
+            {
+                if (members[i].IsField())
+                {
+                    sourceObject = ((FieldInfo) members[i]).GetValue(sourceObject);
+                }
+                else if (members[i].IsProperty())
+                {
+                    sourceObject = ((PropertyInfo) members[i]).GetValue(sourceObject);
+                }
+            }
+
+            return sourceObject;
+        }
+
         public static Type[] GetTypes(params ITypeFilter[] filters)
         {
             if (filters.Length == 0)
@@ -27,6 +142,31 @@ namespace Optique.Reflection
             {
                 return Types.Where(type => filters.All(filter => filter.IsMatch(type))).ToArray();
             }
+        }
+        
+        public static Assembly FindAssembly(string assemblyName)
+        {
+            Assembly result = Assemblies.FirstOrDefault(assembly => assembly.GetName().Name.Equals(assemblyName));
+            return default == result ? null : result;
+        }
+
+        public static Type FindType(string typeFullName)
+        {
+            if (TypesCache.ContainsKey(typeFullName) == false)
+            {
+                bool Predicate(Type type) => typeFullName.Equals(type.FullName);
+
+                if (Types.Any(Predicate))
+                {
+                    TypesCache.Add(typeFullName, Types.First(Predicate));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return TypesCache[typeFullName];
         }
 
         private static Namespace[] GetNamespaces()
@@ -144,31 +284,6 @@ namespace Optique.Reflection
             namespaces.AddRange(additionalNamespaces);
 
             return namespaces.Where(n => n.Parent == null).ToArray();
-        }
-
-        public static Assembly FindAssembly(string assemblyName)
-        {
-            Assembly result = Assemblies.FirstOrDefault(assembly => assembly.GetName().Name.Equals(assemblyName));
-            return default == result ? null : result;
-        }
-
-        public static Type FindType(string typeFullName)
-        {
-            if (TypesCache.ContainsKey(typeFullName) == false)
-            {
-                bool Predicate(Type type) => typeFullName.Equals(type.FullName);
-
-                if (Types.Any(Predicate))
-                {
-                    TypesCache.Add(typeFullName, Types.First(Predicate));
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-            return TypesCache[typeFullName];
         }
     }
 }
