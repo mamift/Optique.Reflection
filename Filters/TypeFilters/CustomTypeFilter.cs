@@ -2,7 +2,7 @@ using System;
 
 namespace Optique.Reflection
 {
-    public class CustomTypeFilter : ITypeFilter
+    public readonly struct CustomTypeFilter : ITypeFilter
     {
         private readonly Func<Type, bool> _filter;
         

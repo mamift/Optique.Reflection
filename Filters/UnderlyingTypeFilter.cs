@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Optique.Reflection
 {
-    public class UnderlyingTypeFilter : IMemberFilter, ITypeFilter
+    public readonly struct UnderlyingTypeFilter : IMemberFilter, ITypeFilter
     {
         private readonly bool _covariance;
         private readonly bool _contravariance;

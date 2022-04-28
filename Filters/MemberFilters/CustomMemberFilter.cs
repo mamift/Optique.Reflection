@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Optique.Reflection
 {
-    public class CustomMemberFilter : IMemberFilter
+    public readonly struct CustomMemberFilter : IMemberFilter
     {
         private readonly Func<MemberInfo, bool> _filter;
         

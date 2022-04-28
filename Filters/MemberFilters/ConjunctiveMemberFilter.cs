@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Optique.Reflection
 {
-    public class ConjunctiveMemberFilter : IMemberFilter
+    public readonly struct ConjunctiveMemberFilter : IMemberFilter
     {
         private readonly IEnumerable<IMemberFilter> _filters;
         

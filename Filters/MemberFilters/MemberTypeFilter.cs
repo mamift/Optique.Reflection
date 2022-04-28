@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace Optique.Reflection
 {
-    public class MemberTypeFilter : IMemberFilter
+    public readonly struct MemberTypeFilter : IMemberFilter
     {
         private readonly MemberTypes _filterCriteria;
         
