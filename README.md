@@ -9,16 +9,17 @@ The library contains a set of extensions and utility-features to easily working 
 
 ## Usage examples
 
-Getting all inheritors of a type (including the target type):
+Getting all inheritors of a type:
 ```csharp
-var inheritorsFilter = new UnderlyingTypeFilter(typeof(SomeType), covariance: true);
-Type[] types = ReflectionUtility.GetTypes(inheritorsFilter);
+Type targetType = typeof(SomeType);
+var inheritorsFilter = new UnderlyingTypeFilter(targetType, covariance: true, includeTargetType: false);
+Type[] inheritors = ReflectionUtility.GetTypes(inheritorsFilter);
 ```
 
 Getting all internal fields and properties of a type:
 ```csharp
-IMemberFilter propertiesAndFieldsFilter = new MemberTypeFilter(MemberTypes.Property | MemberTypes.Field);
-IMemberFilter internalMembersFilter = new AccessModifierFilter(AccessModifiers.Internal);
+var propertiesAndFieldsFilter = new MemberTypeFilter(MemberTypes.Property | MemberTypes.Field);
+var internalMembersFilter = new AccessModifierFilter(AccessModifiers.Internal);
 
 MemberInfo[] internalMembers = typeof(SomeType).GetMembers(propertiesAndFieldsFilter, internalMembersFilter);
 ```
@@ -27,6 +28,10 @@ Getting detailed information of `MemberInfo`'s instance via extensions methods.
 ```csharp
 bool IsPublicStaticMethod(MemberInfo memberInfo)
 {
-    return memberInfo.IsMethod() && memberInfo.IsStatic() && memberInfo.GetAccessModifier() == AccessModifiers.Public;
+    bool isMethod = memberInfo.IsMethod();
+    bool isStatic = memberInfo.IsStatic();
+    bool isPublic = memberInfo.GetAccessModifier() == AccessModifiers.Public;
+    
+    return isMethod && isStatic && isPublic;
 }
 ```
