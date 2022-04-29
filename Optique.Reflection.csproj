@@ -32,27 +32,27 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="Enums\AccessModifiers.cs" />
-        <Compile Include="Extensions\ConstructorInfoExtensions.cs" />
-        <Compile Include="Extensions\FieldInfoExtensions.cs" />
-        <Compile Include="Extensions\MemberInfoExtensions.cs" />
-        <Compile Include="Extensions\MethodInfoExtensions.cs" />
-        <Compile Include="Extensions\NamespaceExtensions.cs" />
-        <Compile Include="Extensions\TypeExtensions.cs" />
-        <Compile Include="Filters\Interfaces\IFilter.cs" />
-        <Compile Include="Filters\Interfaces\IMemberFilter.cs" />
-        <Compile Include="Filters\Interfaces\ITypeFilter.cs" />
-        <Compile Include="Filters\MemberFilters\AccessModifierFilter.cs" />
-        <Compile Include="Filters\MemberFilters\ConjunctiveMemberFilter.cs" />
-        <Compile Include="Filters\MemberFilters\CustomMemberFilter.cs" />
-        <Compile Include="Filters\MemberFilters\DisjunctiveMemberFilter.cs" />
-        <Compile Include="Filters\MemberFilters\MemberTypeFilter.cs" />
-        <Compile Include="Filters\TypeFilters\AssemblyFilter.cs" />
-        <Compile Include="Filters\TypeFilters\CustomTypeFilter.cs" />
-        <Compile Include="Filters\UnderlyingTypeFilter.cs" />
-        <Compile Include="Namespace.cs" />
+        <Compile Include="Optique.Reflection\Enums\AccessModifiers.cs" />
+        <Compile Include="Optique.Reflection\Extensions\ConstructorInfoExtensions.cs" />
+        <Compile Include="Optique.Reflection\Extensions\FieldInfoExtensions.cs" />
+        <Compile Include="Optique.Reflection\Extensions\MemberInfoExtensions.cs" />
+        <Compile Include="Optique.Reflection\Extensions\MethodInfoExtensions.cs" />
+        <Compile Include="Optique.Reflection\Extensions\NamespaceExtensions.cs" />
+        <Compile Include="Optique.Reflection\Extensions\TypeExtensions.cs" />
+        <Compile Include="Optique.Reflection\Filters\Interfaces\IFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\Interfaces\IMemberFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\Interfaces\ITypeFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\MemberFilters\AccessModifierFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\MemberFilters\ConjunctiveMemberFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\MemberFilters\CustomMemberFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\MemberFilters\DisjunctiveMemberFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\MemberFilters\MemberTypeFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\TypeFilters\AssemblyFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\TypeFilters\CustomTypeFilter.cs" />
+        <Compile Include="Optique.Reflection\Filters\UnderlyingTypeFilter.cs" />
+        <Compile Include="Optique.Reflection\Namespace.cs" />
+        <Compile Include="Optique.Reflection\ReflectionUtility.cs" />
         <Compile Include="Properties\Optique.Reflection.AssemblyInfo.cs" />
-        <Compile Include="ReflectionUtility.cs" />
     </ItemGroup>
     <ItemGroup>
       <Reference Include="System" />
