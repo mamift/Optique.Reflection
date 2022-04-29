@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace Optique.Reflection
 {
-    public class AccessModifierFilter : IMemberFilter
+    public readonly struct AccessModifierFilter : IMemberFilter
     {
         private readonly AccessModifiers _filterCriteria;
 

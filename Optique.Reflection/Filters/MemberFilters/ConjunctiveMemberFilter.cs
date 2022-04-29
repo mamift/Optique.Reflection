@@ -4,18 +4,18 @@ using System.Reflection;
 
 namespace Optique.Reflection
 {
-    public class DisjunctiveMemberFilter : IMemberFilter
+    public readonly struct ConjunctiveMemberFilter : IMemberFilter
     {
         private readonly IEnumerable<IMemberFilter> _filters;
         
-        public DisjunctiveMemberFilter(IEnumerable<IMemberFilter> filters)
+        public ConjunctiveMemberFilter(IEnumerable<IMemberFilter> filters)
         {
             _filters = filters;
         }
         
         public bool IsMatch(MemberInfo targetObject)
         {
-            return _filters.Any(filter => filter.IsMatch(targetObject));
+            return _filters.All(filter => filter.IsMatch(targetObject));
         }
     }
 }

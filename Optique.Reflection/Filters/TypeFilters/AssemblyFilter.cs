@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Optique.Reflection
 {
-    public class AssemblyFilter : ITypeFilter
+    public readonly struct AssemblyFilter : ITypeFilter
     {
         private readonly Assembly[] _assemblies;
         
