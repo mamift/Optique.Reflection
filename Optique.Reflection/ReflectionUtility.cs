@@ -169,6 +169,42 @@ namespace Optique.Reflection
             return TypesCache[typeFullName];
         }
 
+        public static Namespace FindNamespace(string name)
+        {
+            string[] names = name.Split('.');
+
+            Namespace[] spaces = Namespaces;
+            StringBuilder str = new StringBuilder();
+
+            for (int i = 0; i < names.Length; ++i)
+            {
+                if (str.Length > 0)
+                {
+                    str.Append('.');
+                }
+                
+                str.Append(names[i]);
+                
+                if (spaces.Any(s => s.Name.Equals(str.ToString())))
+                {
+                    Namespace target = spaces.First(s => s.Name.Equals(str.ToString()));
+
+                    if (i == names.Length - 1)
+                    {
+                        return target;
+                    }
+
+                    spaces = target.Namespaces;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
         private static Namespace[] GetNamespaces()
         {
             Dictionary<string, List<Type>> namespacesMap = new Dictionary<string, List<Type>>();
