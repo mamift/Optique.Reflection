@@ -9,11 +9,12 @@ The library contains a set of extensions and utility-features to easily working 
 
 ## Usage examples
 
-Getting all inheritors of a type:
+Getting all non-abstract inheritors of a type:
 ```csharp
 Type targetType = typeof(SomeType);
 var inheritorsFilter = new UnderlyingTypeFilter(targetType, covariance: true, includeTargetType: false);
-Type[] inheritors = ReflectionUtility.GetTypes(inheritorsFilter);
+var nonAbstractFilter = new CustomTypeFilter(type => type.IsAbstract == false);
+Type[] inheritors = ReflectionUtility.GetTypes(inheritorsFilter, nonAbstractFilter);
 ```
 
 Getting all internal fields and properties of a type:
