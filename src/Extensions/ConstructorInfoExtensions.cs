@@ -1,12 +1,12 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection.Extensions
+namespace Optique.Reflection.Extensions;
+
+public static class ConstructorInfoExtensions
 {
-    public static class ConstructorInfoExtensions
+    public static AccessModifiers GetAccessModifier(this ConstructorInfo constructorInfo)
     {
-        public static AccessModifiers GetAccessModifier(this ConstructorInfo constructorInfo)
-        {
             if (constructorInfo.IsPrivate) return AccessModifiers.Private;
             if (constructorInfo.IsFamily) return AccessModifiers.Protected;
             if (constructorInfo.IsFamilyOrAssembly) return AccessModifiers.ProtectedInternal;
@@ -17,5 +17,4 @@ namespace Optique.Reflection.Extensions
             throw new Exception($"ConstructorInfo {constructorInfo} has unknown access modifier");
         }
         
-    }
 }

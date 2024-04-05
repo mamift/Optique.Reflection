@@ -1,21 +1,20 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection
+namespace Optique.Reflection;
+
+public readonly struct CustomMemberFilter : IMemberFilter
 {
-    public readonly struct CustomMemberFilter : IMemberFilter
+    private readonly Func<MemberInfo, bool> _filter;
+        
+        
+    public CustomMemberFilter(Func<MemberInfo, bool> filter)
     {
-        private readonly Func<MemberInfo, bool> _filter;
-        
-        
-        public CustomMemberFilter(Func<MemberInfo, bool> filter)
-        {
             _filter = filter;
         }
         
-        public bool IsMatch(MemberInfo targetObject)
-        {
+    public bool IsMatch(MemberInfo targetObject)
+    {
             return _filter.Invoke(targetObject);
         }
-    }
 }

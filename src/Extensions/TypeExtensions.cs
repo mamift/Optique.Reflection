@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Optique.Reflection.Extensions
+namespace Optique.Reflection.Extensions;
+
+public static class TypeExtensions
 {
-    public static class TypeExtensions
+    public static bool IsCastableTo(this Type from, Type to)
     {
-        public static bool IsCastableTo(this Type from, Type to)
-        {
             return to.IsAssignableFrom(from) ||
                    typeof(IConvertible).IsAssignableFrom(from) && typeof(IConvertible).IsAssignableFrom(to) ||
                    from.GetMethods(BindingFlags.Public | BindingFlags.Static)
@@ -19,19 +19,19 @@ namespace Optique.Reflection.Extensions
                            );
         }
 
-        public static MemberInfo[] GetMembers(this Type targetType, params IMemberFilter[] filters)
-        {
+    public static MemberInfo[] GetMembers(this Type targetType, params IMemberFilter[] filters)
+    {
             bool IsMatch(MemberInfo memberInfo) => filters.All(filter => filter.IsMatch(memberInfo));
             return targetType.GetMembersRecursively().Where(IsMatch).ToArray();
         }
 
-        public static MemberInfo[] GetAllMembers(this Type targetType)
-        {
+    public static MemberInfo[] GetAllMembers(this Type targetType)
+    {
             return GetMembersRecursively(targetType).ToArray();
         }
         
-        private static IEnumerable<MemberInfo> GetMembersRecursively(this Type type)
-        {
+    private static IEnumerable<MemberInfo> GetMembersRecursively(this Type type)
+    {
             if (type == null || type.IsGenericType)
             {
                 return Enumerable.Empty<MemberInfo>();
@@ -54,8 +54,8 @@ namespace Optique.Reflection.Extensions
             return type.GetMembers(flags).Concat(GetMembersRecursively(type.BaseType));
         }
 
-        public static AccessModifiers GetAccessModifier(this Type type)
-        {
+    public static AccessModifiers GetAccessModifier(this Type type)
+    {
             if (type.IsNested)
             {
                 if (type.IsNestedPrivate) return AccessModifiers.Private;
@@ -71,5 +71,4 @@ namespace Optique.Reflection.Extensions
 
             throw new NotImplementedException();
         }
-    }
 }

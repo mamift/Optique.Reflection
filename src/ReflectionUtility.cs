@@ -5,21 +5,21 @@ using System.Reflection;
 using System.Text;
 using Optique.Reflection.Extensions;
 
-namespace Optique.Reflection
+namespace Optique.Reflection;
+
+public static class ReflectionUtility
 {
-    public static class ReflectionUtility
+    public const string GlobalNamespace = "::Global Namespace::";
+
+    public static Assembly[] Assemblies { get; } = AppDomain.CurrentDomain.GetAssemblies();
+    public static Type[] Types { get; } = Assemblies.SelectMany(assembly => assembly.GetTypes()).ToArray();
+    public static Namespace[] Namespaces { get; } = GetNamespaces();
+
+    private static readonly Dictionary<string, Type> TypesCache = new Dictionary<string, Type>();
+
+
+    public static Action<object> GetMutator(object targetObject, IEnumerable<MemberInfo> membersChain)
     {
-        public const string GlobalNamespace = "::Global Namespace::";
-
-        public static Assembly[] Assemblies { get; } = AppDomain.CurrentDomain.GetAssemblies();
-        public static Type[] Types { get; } = Assemblies.SelectMany(assembly => assembly.GetTypes()).ToArray();
-        public static Namespace[] Namespaces { get; } = GetNamespaces();
-
-        private static readonly Dictionary<string, Type> TypesCache = new Dictionary<string, Type>();
-
-
-        public static Action<object> GetMutator(object targetObject, IEnumerable<MemberInfo> membersChain)
-        {
             //TODO: remove try-catch
             if (targetObject == null)
             {
@@ -92,8 +92,8 @@ namespace Optique.Reflection
             return null;
         }
 
-        public static Func<object> GetAccessor(object targetObject, IEnumerable<MemberInfo> membersChain)
-        {
+    public static Func<object> GetAccessor(object targetObject, IEnumerable<MemberInfo> membersChain)
+    {
             object closingObject = GetClosingObject(targetObject, membersChain);
 
             MemberInfo memberInfo = membersChain.Last();
@@ -114,8 +114,8 @@ namespace Optique.Reflection
             return null;
         }
 
-        public static object GetClosingObject(object sourceObject, IEnumerable<MemberInfo> membersChain)
-        {
+    public static object GetClosingObject(object sourceObject, IEnumerable<MemberInfo> membersChain)
+    {
             MemberInfo[] members = membersChain.ToArray();
 
             for (int i = 0; i < members.Length - 1; ++i)
@@ -133,8 +133,8 @@ namespace Optique.Reflection
             return sourceObject;
         }
 
-        public static Type[] GetTypes(params ITypeFilter[] filters)
-        {
+    public static Type[] GetTypes(params ITypeFilter[] filters)
+    {
             if (filters.Length == 0)
             {
                 return Types;
@@ -145,14 +145,14 @@ namespace Optique.Reflection
             }
         }
         
-        public static Assembly FindAssembly(string assemblyName)
-        {
+    public static Assembly FindAssembly(string assemblyName)
+    {
             Assembly result = Assemblies.FirstOrDefault(assembly => assembly.GetName().Name.Equals(assemblyName));
             return default == result ? null : result;
         }
 
-        public static Type FindType(string typeFullName)
-        {
+    public static Type FindType(string typeFullName)
+    {
             if (TypesCache.ContainsKey(typeFullName) == false)
             {
                 bool Predicate(Type type) => typeFullName.Equals(type.FullName);
@@ -170,8 +170,8 @@ namespace Optique.Reflection
             return TypesCache[typeFullName];
         }
 
-        public static Namespace FindNamespace(string name)
-        {
+    public static Namespace FindNamespace(string name)
+    {
             string[] names = name.Split('.');
 
             Namespace[] spaces = Namespaces;
@@ -206,8 +206,8 @@ namespace Optique.Reflection
             return null;
         }
 
-        private static Namespace[] GetNamespaces()
-        {
+    private static Namespace[] GetNamespaces()
+    {
             Dictionary<string, List<Type>> namespacesMap = new Dictionary<string, List<Type>>();
 
             foreach (Type type in Types)
@@ -322,5 +322,4 @@ namespace Optique.Reflection
 
             return namespaces.Where(n => n.Parent == null).ToArray();
         }
-    }
 }

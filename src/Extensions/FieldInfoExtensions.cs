@@ -1,12 +1,12 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection.Extensions
+namespace Optique.Reflection.Extensions;
+
+public static class FieldInfoExtensions
 {
-    public static class FieldInfoExtensions
+    public static AccessModifiers GetAccessModifier(this FieldInfo fieldInfo)
     {
-        public static AccessModifiers GetAccessModifier(this FieldInfo fieldInfo)
-        {
             if (fieldInfo.IsPrivate) return AccessModifiers.Private;
             if (fieldInfo.IsFamily) return AccessModifiers.Protected;
             if (fieldInfo.IsFamilyOrAssembly) return AccessModifiers.ProtectedInternal;
@@ -16,5 +16,4 @@ namespace Optique.Reflection.Extensions
 
             throw new Exception($"FieldInfo {fieldInfo} has unknown access modifier");
         }
-    }
 }

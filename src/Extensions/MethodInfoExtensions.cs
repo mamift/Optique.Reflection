@@ -1,12 +1,12 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection.Extensions
+namespace Optique.Reflection.Extensions;
+
+public static class MethodInfoExtensions
 {
-    public static class MethodInfoExtensions
+    public static AccessModifiers GetAccessModifier(this MethodInfo methodInfo)
     {
-        public static AccessModifiers GetAccessModifier(this MethodInfo methodInfo)
-        {
             if (methodInfo.IsPrivate) return AccessModifiers.Private;
             if (methodInfo.IsFamily) return AccessModifiers.Protected;
             if (methodInfo.IsFamilyOrAssembly) return AccessModifiers.ProtectedInternal;
@@ -16,5 +16,4 @@ namespace Optique.Reflection.Extensions
 
             throw new Exception($"MethodInfo {methodInfo} has unknown access modifier");
         }
-    }
 }

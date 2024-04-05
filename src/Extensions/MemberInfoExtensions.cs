@@ -1,12 +1,12 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection.Extensions
+namespace Optique.Reflection.Extensions;
+
+public static class MemberInfoExtensions
 {
-    public static class MemberInfoExtensions
+    public static Type GetUnderlyingType(this MemberInfo memberInfo)
     {
-        public static Type GetUnderlyingType(this MemberInfo memberInfo)
-        {
             switch (memberInfo.MemberType)
             {
                 case MemberTypes.Property: return ((PropertyInfo)memberInfo).PropertyType;
@@ -20,16 +20,16 @@ namespace Optique.Reflection.Extensions
             }
         }
 
-        public static bool IsProperty(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Property;
-        public static bool IsField(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Field;
-        public static bool IsMethod(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Method;
-        public static bool IsEvent(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Event;
-        public static bool IsTypeInfo(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.TypeInfo;
-        public static bool IsConstructor(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Constructor;
-        public static bool IsNestedType(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.NestedType;
+    public static bool IsProperty(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Property;
+    public static bool IsField(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Field;
+    public static bool IsMethod(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Method;
+    public static bool IsEvent(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Event;
+    public static bool IsTypeInfo(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.TypeInfo;
+    public static bool IsConstructor(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.Constructor;
+    public static bool IsNestedType(this MemberInfo memberInfo) => memberInfo.MemberType == MemberTypes.NestedType;
 
-        public static bool IsStatic(this MemberInfo memberInfo)
-        {
+    public static bool IsStatic(this MemberInfo memberInfo)
+    {
             switch (memberInfo.MemberType)
             {
                 case MemberTypes.Property:
@@ -55,8 +55,8 @@ namespace Optique.Reflection.Extensions
             }
         }
         
-        public static AccessModifiers GetAccessModifier(this MemberInfo memberInfo)
-        {
+    public static AccessModifiers GetAccessModifier(this MemberInfo memberInfo)
+    {
             switch (memberInfo.MemberType)
             {
                 case MemberTypes.Property:
@@ -76,5 +76,4 @@ namespace Optique.Reflection.Extensions
                 default: throw new NotImplementedException();
             }
         }
-    }
 }

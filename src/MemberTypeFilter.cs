@@ -1,19 +1,19 @@
 using System.Reflection;
 
-namespace Optique.Reflection
+namespace Optique.Reflection;
+
+public readonly struct MemberTypeFilter : IMemberFilter
 {
-    public readonly struct MemberTypeFilter : IMemberFilter
-    {
-        private readonly MemberTypes _filterCriteria;
+    private readonly MemberTypes _filterCriteria;
         
 
-        public MemberTypeFilter(MemberTypes memberTypes)
-        {
+    public MemberTypeFilter(MemberTypes memberTypes)
+    {
             _filterCriteria = memberTypes;
         }
 
-        public bool IsMatch(MemberInfo memberInfo)
-        {
+    public bool IsMatch(MemberInfo memberInfo)
+    {
             switch (memberInfo.MemberType)
             {
                 case MemberTypes.Property: return _filterCriteria.HasFlag(MemberTypes.Property);
@@ -26,5 +26,4 @@ namespace Optique.Reflection
             
             return false;
         }
-    }
 }

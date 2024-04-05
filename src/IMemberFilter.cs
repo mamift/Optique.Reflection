@@ -1,6 +1,5 @@
 using System.Reflection;
 
-namespace Optique.Reflection
-{
-    public interface IMemberFilter : IFilter<MemberInfo> { }
-}
+namespace Optique.Reflection;
+
+public interface IMemberFilter : IFilter<MemberInfo> { }

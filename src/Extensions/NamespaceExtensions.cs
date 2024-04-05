@@ -1,9 +1,9 @@
-namespace Optique.Reflection.Extensions
+namespace Optique.Reflection.Extensions;
+
+internal static class NamespaceExtensions
 {
-    internal static class NamespaceExtensions
+    internal static bool IsChildOf(this Namespace parentNamespace, Namespace childNamespace)
     {
-        internal static bool IsChildOf(this Namespace parentNamespace, Namespace childNamespace)
-        {
             string parent = parentNamespace.Name;
             string child = childNamespace.Name;
 
@@ -30,5 +30,4 @@ namespace Optique.Reflection.Extensions
             
             return true;
         }
-    }
 }

@@ -1,7 +1,6 @@
-namespace Optique.Reflection
+namespace Optique.Reflection;
+
+public interface IFilter<in T>
 {
-    public interface IFilter<in T>
-    {
-        bool IsMatch(T targetObject);
-    }
+    bool IsMatch(T targetObject);
 }
