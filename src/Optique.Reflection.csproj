@@ -6,24 +6,17 @@
     <LangVersion>latest</LangVersion>
     <Nullables>enable</Nullables>
     <Version>1.0.0</Version>
-    <Title>Optique.Reflection</Title>
-    <Authors>Optique Games et al</Authors>
+    <Title>mamift.Reflequery</Title>
+    <Authors>Optique Games, github.com/mamift</Authors>
     <Company>Optique Games</Company>
-    <Copyright>Copyright © 2020-2022 Optique Games</Copyright>
+    <Copyright>Copyright © 2020-2024 Optique Games, github.com/mamift</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>./Release/Optique/Runtime/</OutputPath>
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
-  <Target Name="AfterBuild">
-    <Delete Files=".\Release\Optique\Runtime\Optique.Reflection.pdb" />
-  </Target>
   <ItemGroup>
     <PackageReference Include="PolySharp" Version="1.14.1">
       <PrivateAssets>all</PrivateAssets>
