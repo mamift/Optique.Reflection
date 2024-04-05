@@ -9,14 +9,14 @@ public class Namespace
     public Type[] Types { get; internal set; } = Array.Empty<Type>();
     public Namespace[] Namespaces { get; internal set; } = Array.Empty<Namespace>();
 
-        
+
     internal Namespace(string name)
     {
-            Name = name;
-        }
-        
+        Name = name;
+    }
+
     public override string ToString()
     {
-            return $"{Name}: namespaces {Namespaces?.Length ?? 0}, types {Types?.Length ?? 0}";
-        }
+        return $"{Name}: namespaces {Namespaces?.Length ?? 0}, types {Types?.Length ?? 0}";
+    }
 }

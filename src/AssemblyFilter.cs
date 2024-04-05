@@ -8,7 +8,7 @@ namespace Optique.Reflection;
 public readonly struct AssemblyFilter : ITypeFilter
 {
     private readonly Assembly[] _assemblies;
-        
+
     public AssemblyFilter(params Assembly[] assemblies)
     {
         _assemblies = assemblies;
@@ -17,18 +17,16 @@ public readonly struct AssemblyFilter : ITypeFilter
     public AssemblyFilter(params string[] assemblies)
     {
         List<Assembly> result = new List<Assembly>(assemblies.Length);
-        foreach (string assemblyName in assemblies)
-        {
+        foreach (string assemblyName in assemblies) {
             Assembly assembly = ReflectionUtility.FindAssembly(assemblyName);
-            if (assembly != null)
-            {
+            if (assembly != null) {
                 result.Add(assembly);
             }
         }
 
         _assemblies = result.ToArray();
     }
-        
+
     public bool IsMatch(Type targetObject)
     {
         return _assemblies.Any(assembly => assembly.Equals(targetObject.Assembly));

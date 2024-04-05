@@ -6,15 +6,15 @@ namespace Optique.Reflection;
 public readonly struct CustomMemberFilter : IMemberFilter
 {
     private readonly Func<MemberInfo, bool> _filter;
-        
-        
+
+
     public CustomMemberFilter(Func<MemberInfo, bool> filter)
     {
-            _filter = filter;
-        }
-        
+        _filter = filter;
+    }
+
     public bool IsMatch(MemberInfo targetObject)
     {
-            return _filter.Invoke(targetObject);
-        }
+        return _filter.Invoke(targetObject);
+    }
 }
