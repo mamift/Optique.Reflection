@@ -1,4 +1,5 @@
 using System.Reflection;
+using Optique.Reflection.Extensions;
 
 namespace Optique.Reflection
 {

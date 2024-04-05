@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection
+namespace Optique.Reflection.Extensions
 {
     public static class MemberInfoExtensions
     {
@@ -71,7 +71,7 @@ namespace Optique.Reflection
                 case MemberTypes.Method: return ((MethodInfo)memberInfo).GetAccessModifier();
                 case MemberTypes.Event: return ((EventInfo)memberInfo).AddMethod.GetAccessModifier();
                 case MemberTypes.TypeInfo: return ((Type)memberInfo).GetAccessModifier();
-                case MemberTypes.Constructor: return ((ConstructorInfo)memberInfo).GetAccessModifier();
+                case MemberTypes.Constructor: return ConstructorInfoExtensions.GetAccessModifier(((ConstructorInfo)memberInfo));
                 case MemberTypes.NestedType: return ((Type)memberInfo).GetAccessModifier();
                 default: throw new NotImplementedException();
             }

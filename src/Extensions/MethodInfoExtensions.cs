@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection
+namespace Optique.Reflection.Extensions
 {
     public static class MethodInfoExtensions
     {

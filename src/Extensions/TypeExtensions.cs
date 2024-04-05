@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Optique.Reflection
+namespace Optique.Reflection.Extensions
 {
     public static class TypeExtensions
     {

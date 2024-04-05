@@ -1,4 +1,4 @@
-namespace Optique.Reflection
+namespace Optique.Reflection.Extensions
 {
     internal static class NamespaceExtensions
     {
