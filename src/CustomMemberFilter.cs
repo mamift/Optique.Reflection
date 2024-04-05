@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection;
+namespace mamift.Reflequery;
 
 public readonly struct CustomMemberFilter : IMemberFilter
 {

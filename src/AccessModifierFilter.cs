@@ -1,7 +1,7 @@
 using System.Reflection;
-using Optique.Reflection.Extensions;
+using mamift.Reflequery.Extensions;
 
-namespace Optique.Reflection;
+namespace mamift.Reflequery;
 
 public readonly struct AccessModifierFilter : IMemberFilter
 {

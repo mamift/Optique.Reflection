@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Optique.Reflection.Extensions;
+using mamift.Reflequery.Extensions;
 
-namespace Optique.Reflection;
+namespace mamift.Reflequery;
 
 public static class ReflectionUtility
 {

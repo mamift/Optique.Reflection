@@ -1,6 +1,6 @@
 using System;
 
-namespace Optique.Reflection;
+namespace mamift.Reflequery;
 
 public readonly struct CustomTypeFilter : ITypeFilter
 {

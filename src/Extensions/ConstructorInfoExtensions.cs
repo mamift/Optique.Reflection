@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Optique.Reflection.Extensions;
+namespace mamift.Reflequery.Extensions;
 
 public static class ConstructorInfoExtensions
 {

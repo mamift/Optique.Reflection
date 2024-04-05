@@ -1,4 +1,4 @@
-namespace Optique.Reflection.Extensions;
+namespace mamift.Reflequery.Extensions;
 
 internal static class NamespaceExtensions
 {

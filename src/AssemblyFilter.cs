@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Optique.Reflection;
+namespace mamift.Reflequery;
 
 public readonly struct AssemblyFilter : ITypeFilter
 {

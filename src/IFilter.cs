@@ -1,4 +1,4 @@
-namespace Optique.Reflection;
+namespace mamift.Reflequery;
 
 public interface IFilter<in T>
 {

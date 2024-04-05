@@ -1,5 +1,5 @@
 using System;
 
-namespace Optique.Reflection;
+namespace mamift.Reflequery;
 
 public interface ITypeFilter : IFilter<Type> { }
