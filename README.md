@@ -1,6 +1,10 @@
-# Optique.Reflection
+# mamift.Reflequery
 
-The library contains a set of extensions and utility-features to easily working with C# reflection.
+This is a fork of the original: https://github.com/OptiqueGames/Optique.Reflection.
+
+It has been ported to .NET Standard 2.0 (the original targeted .NET Framework 4.7.2).
+
+It contains a set of extensions and utility-features to easily working with C# reflection.
 
 ## Features
 - Search of types and extracting type's members by customizable filters
